@@ -91,35 +91,6 @@ namespace LiveSplit.SplitPrediction
         {
             Split = cmbSplit.SelectedItem.ToString();
         }
-
-        void RunPredictionSettings_Load(object sender, EventArgs e)
-        {
-            chkOverrideTextColor_CheckedChanged(null, null);
-            chkOverrideTimeColor_CheckedChanged(null, null);
-            cmbComparison.Items.Clear();
-            cmbComparison.Items.Add("Current Comparison");
-            cmbComparison.Items.AddRange(CurrentState.Run.Comparisons.Where(x => x != BestSplitTimesComparisonGenerator.ComparisonName && x != NoneComparisonGenerator.ComparisonName).ToArray());
-            cmbSplit.Items.Clear();
-            // TODO: figure out how to populate this combo box with all splits in current .lss file
-            if (!cmbComparison.Items.Contains(Comparison))
-                cmbComparison.Items.Add(Comparison);
-            rdoSeconds.Checked = Accuracy == TimeAccuracy.Seconds;
-            rdoTenths.Checked = Accuracy == TimeAccuracy.Tenths;
-            rdoHundredths.Checked = Accuracy == TimeAccuracy.Hundredths;
-            if (Mode == LayoutMode.Horizontal)
-            {
-                chkTwoRows.Enabled = false;
-                chkTwoRows.DataBindings.Clear();
-                chkTwoRows.Checked = true;
-            }
-            else
-            {
-                chkTwoRows.Enabled = true;
-                chkTwoRows.DataBindings.Clear();
-                chkTwoRows.DataBindings.Add("Checked", this, "Display2Rows", false, DataSourceUpdateMode.OnPropertyChanged);
-            }
-        }
-
         
         void UpdateAccuracy()
         {
@@ -204,11 +175,6 @@ namespace LiveSplit.SplitPrediction
                 chkTwoRows.DataBindings.Clear();
                 chkTwoRows.DataBindings.Add("Checked", this, "Display2Rows", false, DataSourceUpdateMode.OnPropertyChanged);
             }
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void rdoSeconds_CheckedChanged(object sender, EventArgs e)
